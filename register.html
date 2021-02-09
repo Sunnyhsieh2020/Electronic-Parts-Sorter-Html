@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Sign up to Electronic Parts Sorter</title>
+</head>
+<style>
+        .menu {
+
+            position: relative;
+            left: 50%;
+        }
+        .menu_content {
+            text-align:center;
+            width: 300px;
+            height: 400px;
+            background-color: #F5F5F5;
+            border-radius:10px;
+
+            position: absolute;
+            left: -150px;
+        }
+
+</style>
+<body>
+<div class="menu">
+    <div class="menu_content">
+
+    <h1>Create an account.</h1>
+        <form action="/new_user" method="post">
+            <div><span>Username:</span><input name="txt_user" type="text" /></div>
+            <div><span>Password:</span><input name="txt_pswd" type="password" /></div>
+            <div>
+                <button type="submit">Submit</button>
+                <a href="/">Back</a>
+            </div>
+        </form>
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!--<head>-->
+<!--    <title>Welcome to Electr</title>-->
+<!--    -->
+<!--</head>-->
+<style>
+
+        .menu {
+
+            position: relative;
+            left: 50%;
+        }
+        .menu_content {
+            text-align:center;
+            width: 300px;
+            height: 400px;
+            background-color: #F5F5F5;
+            border-radius:10px;
+
+            position: absolute;
+            left: -150px;
+        }
+
+</style>
+<input type="hidden" name="ga_id" class="js-octo-ga-id-input">
+<div class="auth-form-header p-0">
+    <h1><center>Login to Electronic Parts Sorter</center></h1>
+</div>
+<body  background="{{ url_for('static', filename='bg.jpg') }}" style="width:100rem;">
+{{ msg }}
+<div class="menu">
+    <div class="menu_content">
+        <h1>Login</h1>
+    <p style="color: red">{{ error_message }}</p>
+
+        <form action="/login" method="post">
+            <div><span>Username:</span><input name="txt_user" type="text" /></div>
+            <div><span>Password:</span><input name="txt_pswd" type="password" /></div>
+            <div>
+                <button type="submit" class="btn btn-success">Login</button>
+
+                <p class="message"> Not registered?<a href="/register" class="btn btn-primary">Create an account</a></p>
+
+
+<!--                <a href="/register">Sign in</a>-->
+            </div>
+
+        </form>
+    </div>
+</div>
+</body>
+</html>
