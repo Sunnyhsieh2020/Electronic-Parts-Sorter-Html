@@ -160,7 +160,6 @@
 
 </head>
 <body>
-{{ items }}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">  <!--class:樣式的類別     bg-light 是顏色(光亮的background)-->
     <div class="container-fluid"><!--print 格子，表格-->
         <a class="navbar-brand" href="#"><img class="rounded-circle" src="{{ url_for('static', filename='test.jpg') }}" /></a>
@@ -185,7 +184,7 @@
                         Type
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown"><!--drop down 有箭頭，就是下面有選項-->
-                        <li><a class="dropdown-item" href="/page1">Arduino</a></li>
+                        <li><a class="dropdown-item" href="/arduinopart">Arduino</a></li>
                         <li><a class="dropdown-item" href="#">Control</a></li>
                         <li><a class="dropdown-item" href="#">Ethernet</a></li>
                     </ul>
@@ -255,7 +254,7 @@
     <div class="card-body">
         <h5 class="card-title">Arduino</h5>
         <p class="card-text">click to see more type of Arduino parts.</p>
-        <a href="/page1" class="btn btn-primary">Click</a>
+        <a href="/arduinopart" class="btn btn-primary"><strong>Click</strong></a>
 
     </div>
 </div>
@@ -320,25 +319,22 @@ function onclick_buy(event){
       "Arduino Uno",
       "Driver Board",
       "High Power DCDC",
-      "BASIC",
-      "C",
-      "C++",
-      "Clojure",
-      "COBOL",
-      "ColdFusion",
-      "Erlang",
-      "Fortran",
-      "Groovy",
-      "Haskell",
-      "Java",
-      "JavaScript",
-      "Lisp",
-      "Perl",
-      "PHP",
-      "Python",
-      "Ruby",
-      "Scala",
-      "Scheme"
+      "CH376S USB",
+      "CupA S1 Arduino",
+      "ENC28J60",
+      "Ethernet module",
+      "Funduino Joystick",
+      "High Power DCDC",
+      "LTC3780 Automatic Buck Boost",
+      "Micro Female Seat",
+      "Protoshield Expanding Board",
+      "RTC module",
+      "SD Card Module Slot Socket Reader",
+      "V3 Expanding Board",
+      "VGA connector",
+      "Xbee Pro Shield",
+      "YwwRobot 534979",
+
     ];
     $( "#tags" ).autocomplete({
       source: availableTags
