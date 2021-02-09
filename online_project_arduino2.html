@@ -185,7 +185,7 @@
                         Type
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown"><!--drop down 有箭頭，就是下面有選項-->
-                        <li><a class="dropdown-item" href="http://google.com">Arduino</a></li>
+                        <li><a class="dropdown-item" href="/arduinopart">Arduino</a></li>
                         <li><a class="dropdown-item" href="#">Control</a></li>
                         <li><a class="dropdown-item" href="#">Ethernet</a></li>
                     </ul>
@@ -193,7 +193,11 @@
                     <a class="nav-link dropdown-toggle" href="#" id="My list" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">My Favourite🧡
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="shopping_list"><!--drop down 有箭頭，就是下面有選項--></ul>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="shopping_list"><!--drop down 有箭頭，就是下面有選項-->
+                    {% for bookmark in bookmark_list: %}
+                        <li _item="{{bookmark[0]}}"><a href="{{bookmark[1]}}">{{bookmark[0]}}</a></li>
+                    {% endfor %}
+                    </ul>
                 </li>
 
             </ul>
@@ -219,7 +223,7 @@
       <img src="{{ url_for('static', filename='imageboard.png') }}" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="{{ url_for('static', filename='imagedcdc.png') }}" class="d-block w-100" alt="...">
+      <img src="{{ url_for('static', filename='imagedriverboard2.png') }}" class="d-block w-100" alt="...">
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
@@ -238,8 +242,14 @@
             <p><img src="/static/{{ item.url }}" class="card-img-top" alt="..."></p>
             <p>{{ item.html|safe }}</p>
             <div class="card-body">
-                <div class="like"><button type="button" _item="{{ item.title }}" class="btn btn-outline-danger " onclick="onclick_buy(event)">🤍</button></div> <!--onclick意思就是看有沒有click 若有就通知下面的功能--></form>
-                <a href="/detail?id={{ loop.index - 1 }}" class="btn btn-secondary"><strong>Click</strong></a>
+                <div class="like"><button type="button" _item="{{ item.title }}" class="btn btn-outline-danger " onclick="onclick_buy(event)">
+                    {% if item.title in bookmark_names: %}
+                        🧡
+                    {% else: %}
+                        🤍
+                    {% endif %}
+                </button></div> <!--onclick意思就是看有沒有click 若有就通知下面的功能--></form>
+                <a href="/arduinoall?id={{ loop.index - 1 }}" class="btn btn-secondary"><strong>Click</strong></a>
 
 
         </div>
@@ -333,7 +343,7 @@
 <!--   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"-->
 <!--           integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj"-->
 <!--           crossorigin="anonymous"></script>-->
-
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
 //        "Arduino uno":["Arduino Uno","/page2"]
     var item_link={
@@ -347,13 +357,37 @@
         var shopping=document.getElementById("shopping_list");
         //var item_link=event.target.getAttribute("_item_link");
         var key=event.target.getAttribute("_item");
-        if(button_type == "🤍"){
+        console.log(item_link);
+        var link = "";
+        for (var key in item_link) {
+            console.log(item_link[key]);
+            if (item_link[key][0] == item_name) {
+                link = item_link[key][1];
+                break;
+            }
+        }
+        console.log(link);
+
+        if(button_type.trim() == "🤍"){
             event.target.innerHTML ="🧡";
             console.log(item_link);
             //shopping.innerHTML += "<li><a href='"+item_link[key][1]+"'>"+item_link[key][0]+"</a></li>";
             shopping.innerHTML += `<li _item="${item_link[key][0]}"><a href="${item_link[key][1]}">${item_link[key][0]}</a></li>`;
+
+            $.ajax({
+                url: "/add_bookmark",
+                data: {
+                    id: item_name,
+                    link: link
+                },
+                success: function(response) {
+                    alert(response);
+                }
+            });
+
         }else{
           event.target.innerHTML="🤍";
+          var item_name = event.target.getAttribute("_item");
           var target_item=null;
           var items=shopping.getElementsByTagName("li");
           for (var i = 0; i<items.length; i++){
@@ -363,7 +397,17 @@
             }
           }
           shopping.removeChild(target_item);
-            }
+
+            $.ajax({
+                url: "remove_bookmark",
+                data: {
+                    id: item_name
+                },
+                success: function(response) {
+                    alert(response);
+                }
+            });
+        }
     }
 </script>
 </body>
