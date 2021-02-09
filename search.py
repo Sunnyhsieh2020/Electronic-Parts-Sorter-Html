@@ -4,9 +4,9 @@ from flask import Flask, render_template, request, redirect, session
 app = Flask(__name__)
 app.config['SECRET_KEY']="ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"
 items = [
-    {"title" : "Arduino uno", "url" : "image_1.png", "html" : "<p>Arduino Uno content</p>"},
-    {"title" : "Driver Board", "url" : "imagev3board.png", "html" : "<p>Driver Board content</p>"},
-    {"title" : "High Power DCDC", "url" : "imagedcdc2.png", "html" : "<p>High Power DCDC content</p>"},
+    {"title" : "Arduino uno", "url" : "image_1.png", "html" : "<p>Arduino Uno content</p>","cost":"MOP:195.5","location":"line:1,cabinet:2","function":"The Arduino Uno is a microcontroller board based on the ATmega328.It has 20 digital input/output pins","type":"Arduino Uno (R3) Arduino Nano, Arduino Micro, Arduino Due,LilyPad Arduino Board, Arduino Bluetooth, Arduino Diecimila......", "href":"/arduinopart"},
+    {"title" : "Driver Board", "url" : "imagedriverboard.png", "html" : "<p>Driver Board content</p>","cost":"MOP:20","location":"line:1 and 2,cabinet:1","function":"It’s easy to use Arduino or other development platform to drive the stepper motor by this diver board.","type":"asdfasdfasdafasfa"},
+    {"title" : "High Power DCDC", "url" : "imagehighpowerdcdc.png", "html" : "<p>High Power DCDC content</p>"},
     {"title" : "VGA connector", "url" : "imagevgaconnector.png", "html" : "<p>VGA connector content</p>"},
     {"title" : "Xbee", "url" : "imagexbee.png", "html" : "<p>Xbee content</p>"},
 
@@ -18,7 +18,22 @@ def index():
     username = session.get("user", None)
     if username is None:
         return redirect("/auth")
-    return render_template("online_project_arduino2.html", items=items)
+    return render_template("new online project menu.html", items=items)   #所有arduino零件
+
+@app.route("/arduinopart")
+def arduinopart():
+    global items
+    bookmark_names = [x[0] for x in session.get("bookmark_list", [])]
+    return  render_template("online_project_arduino2.html",items=items, bookmark_list=session.get("bookmark_list", []), bookmark_names=bookmark_names)
+
+@app.route("/arduinoall")
+def arduinoall():
+    global items
+    id = 0
+    if "id" in request.args:
+        id = int(request.args["id"])
+
+    return render_template("online_project_arduino_allpart.html", item = items[id])  #詳細零件資料
 
 
 @app.route("/detail")
@@ -28,7 +43,7 @@ def detail():
     if "id" in request.args:
         i = int(request.args["id"])
     item = items[i]
-    return render_template("detail.html", item=item)
+    return render_template("online_project_arduino_allpart.html", item=item)
 
 
 @app.route("/auth")
@@ -87,5 +102,26 @@ def new_user():
     with open("search.txt", "a+") as f:
         f.write(search + "\n")
     return "OK"
+
+@app.route("/add_bookmark")
+def add_bookmark():
+    id = request.args["id"]
+    link = request.args["link"]
+    bookmark_list = session.get("bookmark_list", [])
+    bookmark_list.append([id, link])
+    session["bookmark_list"] = bookmark_list
+    return str(session.get("bookmark_list", []))
+
+
+@app.route("/remove_bookmark")
+def remove_bookmark():
+    id = request.args["id"]
+    bookmark_list = session.get("bookmark_list", [])
+    new_bookmark_list = []
+    for bookmark in bookmark_list:
+        if bookmark[0] != id:
+            new_bookmark_list.append(bookmark)
+    session["bookmark_list"] = new_bookmark_list
+    return str(session.get("bookmark_list", []))
 
 app.run(host="0.0.0.0", port=5000, debug=True)
