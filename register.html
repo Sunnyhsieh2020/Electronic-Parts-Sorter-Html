@@ -2,7 +2,9 @@
         "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>Sign up to Electronic Parts Sorter</title>
+    <div class="auth-form-header p-0">
+    <h1><center>Sign up to Electronic Parts Sorter</center></h1>
+    </div>
 </head>
 <style>
         .menu {
@@ -22,14 +24,17 @@
         }
 
 </style>
-<body>
+<body  bgcolor="#F9ECFE" style="width:1 px;">
+
 <div class="menu">
     <div class="menu_content">
-
-    <h1>Create an account.</h1>
+<div class="auth-form-header p-0">
+    <h1><center>Create an account.</center></h1>
+</div>
+    <h1></h1>
         <form action="/new_user" method="post">
-            <div><span>Username:</span><input name="txt_user" type="text" /></div>
-            <div><span>Password:</span><input name="txt_pswd" type="password" /></div>
+            <div><h3><span>Username*:</span><input name="txt_user" type="text" /></h3></div>
+            <div><h3><span>Password*:</span><input name="txt_pswd" type="password" /></h3></div>
             <div>
                 <button type="submit">Submit</button>
                 <a href="/">Back</a>

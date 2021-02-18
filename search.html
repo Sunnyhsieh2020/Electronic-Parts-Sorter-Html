@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for item in items %}
+<p><a href="/detail?id={{ item.item_id }}">{{ item.title }}</a></p>
+{% endfor %}
+</body>
+</html>
