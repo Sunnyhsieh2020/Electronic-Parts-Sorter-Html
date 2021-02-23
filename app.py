@@ -40,11 +40,11 @@ def index():
         if item["class_id"] == class_id:
             rs.append(item)
     bookmark_names = []
-    if session.get("bookmark_list") is not None:
-        bookmark_names = [x[0] for x in session.get("bookmark_list")]
+    if session.get("bookmark_list",[]) is not None:
+        bookmark_names = [x[0] for x in session.get("bookmark_list",[])]
     bookmark_list = []
-    if session.get("bookmark_list") is not None:
-        bookmark_list = session.get("bookmark_list")
+    if session.get("bookmark_list",[]) is not None:
+        bookmark_list = session.get("bookmark_list",[])
     return render_template("index.html", menu=menu,items=rs, bookmark_list=bookmark_list, bookmark_names=bookmark_names)   # 所有arduino零件
 
 
@@ -59,11 +59,11 @@ def category():
         if item["class_id"] == class_id:
             rs.append(item)
     bookmark_names = []
-    if session.get("bookmark_list") is not None:
-        bookmark_names = [x[0] for x in session.get("bookmark_list")]
+    if session.get("bookmark_list",[]) is not None:
+        bookmark_names = [x[0] for x in session.get("bookmark_list",[])]
     bookmark_list = []
-    if session.get("bookmark_list") is not None:
-        bookmark_list = session.get("bookmark_list")
+    if session.get("bookmark_list",[]) is not None:
+        bookmark_list = session.get("bookmark_list",[])
     return render_template("category.html", menu=menu,items=rs, bookmark_list=bookmark_list, bookmark_names=bookmark_names)
 
 
